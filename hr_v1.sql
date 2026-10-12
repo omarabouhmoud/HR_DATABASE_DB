@@ -12,5 +12,3 @@ CREATE TABLE employees (
     department_id INT FOREIGN KEY REFERENCES departments(id),
     employee_status VARCHAR(50)
 );
-
-HR_New_Code
