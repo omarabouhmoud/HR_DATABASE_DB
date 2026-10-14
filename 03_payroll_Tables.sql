@@ -34,3 +34,18 @@ CREATE TABLE Payroll.PRL_bonus (
     FOREIGN KEY (employee_id) REFERENCES Core.COR_employees(id)
 );
 GO
+
+CREATE TABLE Payroll.PRL_loans (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    loan_amount DECIMAL(10,2) NOT NULL CHECK (loan_amount > 0),
+    loan_date DATE NOT NULL,
+    loan_start DATE NOT NULL,
+    loan_end DATE NOT NULL, 
+    employee_id INT NOT NULL,                
+    loan_status NVARCHAR(20) DEFAULT 'Active',
+     FOREIGN KEY (employee_id) REFERENCES Core.COR_employees(id)
+ );
+GO
+
+
+
