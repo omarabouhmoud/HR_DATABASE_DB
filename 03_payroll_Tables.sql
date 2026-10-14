@@ -2,7 +2,7 @@ USE HR_DATABASE_DB;
 GO
 
 CREATE TABLE Payroll.PRL_payroll (
-	id INT PRIMARY KEY IDENTITY(1,1),            -- Financial Administrator Mobility Number
+	id INT PRIMARY KEY IDENTITY(1,1),                                  -- Financial Administrator Mobility Number
 	gross_salary DECIMAL(10,2) NOT NULL CHECK (gross_salary > 0),      -- Gross salary (Condition: Must be greater than zero)
     income_tax DECIMAL(10,2) DEFAULT 0 CHECK (income_tax >= 0),        -- Withheld taxes (negative values ​​not allowed)
     net_salary DECIMAL(10,2) NOT NULL,                                 -- Net salary after deductions
