@@ -14,3 +14,13 @@ CREATE TABLE Payroll.PRL_payroll (
     FOREIGN KEY (employee_id) REFERENCES Core.COR_employees(id)
 );
 GO
+
+CREATE TABLE Payroll.PRL_overtime (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    date_overtime DATE NOT NULL,
+    hours_overtime DECIMAL(4,2) NOT NULL CHECK (hours_overtime > 0),
+    employee_id INT NOT NULL,
+    overtime_status NVARCHAR(20) DEFAULT 'Pending',
+        FOREIGN KEY (employee_id) REFERENCES Core.COR_employees(id)
+);
+GO
