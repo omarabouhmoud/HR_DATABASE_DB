@@ -24,3 +24,13 @@ CREATE TABLE Payroll.PRL_overtime (
         FOREIGN KEY (employee_id) REFERENCES Core.COR_employees(id)
 );
 GO
+
+CREATE TABLE Payroll.PRL_bonus (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    bonus_amount DECIMAL(10,2) NOT NULL CHECK (bonus_amount > 0),
+    bonus_date DATE NOT NULL,
+    employee_id INT NOT NULL,
+    bonus_status NVARCHAR(20) DEFAULT 'Pending',
+    FOREIGN KEY (employee_id) REFERENCES Core.COR_employees(id)
+);
+GO
