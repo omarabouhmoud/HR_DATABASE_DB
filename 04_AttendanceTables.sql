@@ -2,23 +2,25 @@ USE HR_DATABASE_DB;
 GO
 
 CREATE TABLE Attendance.ATT_attendance (
-	id INT PRIMARY KEY IDENTITY(1,1),
-	date_attendance DATE NOT NULL DEFAULT CAST(GETDATE() AS DATE),
-	time_in TIME NOT NULL,
-	time_out TIME NULL,
-	employee_id INT NOT NULL,
-	    attendance_status NVARCHAR(20) DEFAULT 'Present',
+	id INT PRIMARY KEY IDENTITY(1,1),                                             -- Attendance transaction number
+	date_attendance DATE NOT NULL DEFAULT CAST(GETDATE() AS DATE),				  -- Automatic date-display movement
+	time_in TIME NOT NULL,												          -- Time of clocking in for work
+	time_out TIME NULL,														      -- Time of clock-out fingerprint registration (remains empty until the end of the workday)
+	employee_id INT NOT NULL,													  -- Employee number that fingerprinted                    
+	    attendance_status NVARCHAR(20) DEFAULT 'Present',                         -- Attendance status (present, absent, late)
     FOREIGN KEY (employee_id) REFERENCES Core.COR_employees(id)
 );
 GO
 
 CREATE TABLE Attendance.ATT_vacations (
-    id INT PRIMARY KEY IDENTITY(1,1),         
-	vacation_type NVARCHAR(50) NOT NULL,
-	start_date DATE NOT NULL,
-	end_date DATE NOT NULL,                  
-    employee_id INT NOT NULL,
-	    vacation_status NVARCHAR(20) DEFAULT 'Pending', 
+    id INT PRIMARY KEY IDENTITY(1,1),                                             -- Leave request transaction number
+	vacation_type NVARCHAR(50) NOT NULL,                                          -- Type of leave (annual, sick, emergency)
+	start_date DATE NOT NULL,                                                     -- Leave start date
+	end_date DATE NOT NULL,														  -- Leave end date and return-to-work date                  
+    employee_id INT NOT NULL,                                                     -- Employee number of the leave applicant
+	    vacation_status NVARCHAR(20) DEFAULT 'Pending',                           -- Leave status (pending, approved, rejected)
     FOREIGN KEY (employee_id) REFERENCES Core.COR_employees(id)
 );
 GO
+
+
