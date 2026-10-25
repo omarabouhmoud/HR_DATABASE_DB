@@ -1,12 +1,11 @@
 USE HR_DATABASE_DB;
 GO
 
--- 1. حذف جدول الـ Audit القديم من السيرفر إن وجد لتنظيف البيئة
+
 IF OBJECT_ID('Payroll.PRL_payroll_audit', 'U') IS NOT NULL
     DROP TABLE Payroll.PRL_payroll_audit;
 GO
 
--- 2. إنشاء الجدول الصحيح والمتناسق بالكامل بدون أي علامات تعارض
 CREATE TABLE Payroll.PRL_payroll_audit (
     audit_id INT PRIMARY KEY IDENTITY(1,1),
     employee_id INT NOT NULL,
