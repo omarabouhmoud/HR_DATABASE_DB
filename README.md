@@ -27,59 +27,32 @@
 ### 🔒 الحوكمة والأمن الرقمي
 * **إدارة الصلاحيات (DBA Role):** تم عزل سكريبت التأسيس الرئيسي والـ Passwords الحقيقية محلياً عن طريق قواعد Git الصارمة، وإتاحة ملف تمبلت آمن للعرض يعتمد على دور `db_owner` لحساب إدارة النظام `DBA_Admin`.
 * **سرية البيانات:** عزل جداول الرواتب الحساسة برمجياً تمهيداً لتطبيق التشفير الشامل للبيانات المالية الحساسة.
-  ## 🗄️ هيكل قاعدة البيانات (Database Schema)
+## 🗄️ بنية وهندسة قاعدة البيانات (Database Architecture)
 
-تم تصميم قاعدة بيانات النظام بشكل مجزأ وموزع على **4 مخططات رئيسية (Schemas)** لضمان تنظيم البيانات وسهولة إدارتها:
+تم تصميم قاعدة بيانات النظام استناداً إلى مفهوم **المخططات المجزأة (Sub-schemas/Modules)** لضمان كفاءة الأداء، عزل الصلاحيات، وسهولة التوسع المستقبلي. ينقسم النظام إلى **4 مخططات رئيسية** موزعة كالتالي:
 
-### 1. 👥 مخطط النواة (Core Schema - COR)
-يحتوي هذا المخطط على البيانات الأساسية والهيكلية للمنشأة، ويضم **3 جداول**:
-* **`COR_departments`** (الأقسام): لإدارة وتصنيف الأقسام الإدارية داخل المنشأة.
-* **`COR_employees`** (الموظفين): يحتوي على البيانات الشخصية والأساسية لجميع الموظفين.
-* **`COR_positions`** (الوظائف والمراتب): لإدارة المسميات الوظيفية، السلالم، والمراتب الوظيفية.
+### 1. 👥 مخطط البيانات الأساسية | Core Schema (`COR`)
+يمثل النواة المركزية للنظام ويحتوي على البيانات الهيكلية للمنظمة وعلاقات الموظفين الأساسية (**3 جداول**):
+* **`COR_departments`** ── (الأقسام) إدارة الهيكل الإداري، القطاعات، والفروع داخل المنشأة.
+* **`COR_employees`** ── (الموظفين) الملفات التعريفية للموظفين، البيانات الشخصية، وحالات التعيين.
+* **`COR_positions`** ── (الوظائف والمراتب) المسميات الوظيفية، التوصيف الوظيفي، والدرجات/السلالم الوظيفية.
 
-### 2. 💰 مخطط الرواتب والمالية (Payroll Schema - PRL)
-يختص بإدارة العمليات المالية والتعويضات الخاصة بالموظفين، ويضم **4 جداول**:
-* **`PRL_payroll`**: يضم مسيرات الرواتب الأساسية، صافي الرواتب، والاستقطاعات الضريبية.
-* **`PRL_bonus`**: لمتابعة المكافآت المالية وحالات اعتماده أو صرفها.
-* **`PRL_loans`**: لإدارة السلف والقروض الشخصية للموظفين وجدولة الأقساط.
-* **`PRL_overtime`**: لتسجيل واحتساب ساعات العمل الإضافية المستحقة.
+### 2. 💰 مخطط الرواتب والمالية | Payroll Schema (`PRL`)
+يختص بكافة العمليات الحسابية، التعويضات، والالتزامات المالية الخاصة بالموارد البشرية (**4 جداول**):
+* **`PRL_payroll`** ── (مسيرات الرواتب) احتساب الرواتب الأساسية، البدلات، الاستقطاعات الضريبية، وصافي المستحقات.
+* **`PRL_bonus`** ── (المكافآت) إدارة الحوافز والمكافآت الدورية مع تتبع حالات الاعتماد والصرف الدقيق.
+* **`PRL_loans`** ── (القروض والأقساط) تنظيم السلف والقروض الشخصية وجدولة الاستقطاعات الشهرية المؤتمتة.
+* **`PRL_overtime`** ── (العمل الإضافي) رصد وتدقيق ساعات العمل الإضافية واحتساب التعويض المالي المقابل لها.
 
-### 3. 📅 مخطط الحضور والإجازات (Attendance Schema - ATT)
-يتابع حركة الموظفين ومواظبتهم اليومية، ويضم **جدولين**:
-* **`ATT_vacations`**: لإدارة الإجازات بمختلف أنواعها (سنوية، مرضية، اضطرارية) ومتابعة رصيدها.
-* **`ATT_attendance`**: يحتوي على سجلات الحضور والانصراف اليومية والدقيقة للموظفين.
+### 3. 📅 مخطط إدارة الحضور والإجازات | Attendance Schema (`ATT`)
+يتحكم في تتبع انضباط القوى العاملة وإدارة الإجازات الرسمية والخاصة (**جدولين**):
+* **`ATT_vacations`** ── (الإجازات) إدارة طلبات الإجازات بمختلف أنواعها، وتتبع الأرصدة المستحقة والمستهلكة.
+* **`ATT_attendance`** ── (سجلات الحضور) السجلات اليومية لعمليات الحضور، الانصراف، التأخير، والغياب بشكل دقيق.
 
-### 4. 🤝 مخطط التوظيف (Recruitment Schema - REC)
-يختص بطلب واستقطاب الكفاءات الجديدة وتصفيتها، ويضم **جدولين**:
-* **`REC_job_postings`**: لمتابعة الوظائف الشاغرة والمعلنة والمتوفرة في المنشأة.
-* **`REC_applicants`**: يحتوي على بيانات المتقدمين للوظائف ونظام الفرز والتصفية الأولي.
-### 📊 مخطط مرئي للعلاقات العامة (High-Level Schema Map)
-
-```mermaid
-graph TD
-    subgraph COR [Core Schema]
-        COR_departments
-        COR_employees
-        COR_positions
-    end
-
-    subgraph PRL [Payroll Schema]
-        PRL_payroll
-        PRL_bonus
-        PRL_loans
-        PRL_overtime
-    end
-
-    subgraph ATT [Attendance Schema]
-        ATT_vacations
-        ATT_attendance
-    end
-
-    subgraph REC [Recruitment Schema]
-        REC_job_postings
-        REC_applicants
-    end
-```
+### 4. 🤝 مخطط الاستقطاب والتوظيف | Recruitment Schema (`REC`)
+يغطي الدورة الكاملة لجلب الكفاءات وتصفية المتقدمين الجدد للنظام (**جدولين**):
+* **`REC_job_postings`** ── (الوظائف الشاغرة) إدارة وتتبع الفرص الوظيفية المعلنة ومواصفات كل شاغر وظيفي.
+* **`REC_applicants`** ── (المتقدمين للوظائف) قاعدة بيانات المتقدمين، تتبع مراحل المقابلات، وأنظمة الفرز والتصفية الأولي.
 
 ---
 
@@ -106,3 +79,32 @@ The database features **4 modular schemas** governing **11 interrelated tables**
 ### 🔒 Governance & Security Strategy
 * **Privilege Management (DBA Role):** Implemented a rigorous security baseline using localized Git environment isolation. Server logins and database users (`DBA_Admin_User`) are mapped to the `db_owner` role using secure templates.
 * **Data Privacy:** Strategic physical and logical isolation of financial elements to prepare for granular column-level data encryption.
+
+
+## 🗄️ Database Architecture & Schema Design
+
+The database is architected using a modular **Multi-Schema approach** to ensure high performance, strict data isolation, role-based access control, and seamless scalability. The system is split into **4 core domains**:
+
+### 1. 👥 Core Schema (`COR`)
+Serves as the backbone of the application, managing structural organization and employee profiles (**3 Tables**):
+* **`COR_departments`** ── Manages organizational hierarchy, divisions, and company branches.
+* **`COR_employees`** ── Stores master employee profiles, personal records, and employment statuses.
+* **`COR_positions`** ── Defines job titles, role descriptions, salary grades, and ranks.
+
+### 2. 💰 Payroll Schema (`PRL`)
+Handles all financial computations, compensations, and monetary liabilities (**4 Tables**):
+* **`PRL_payroll`** ── Computes base salaries, allowances, tax deductions, and net payouts.
+* **`PRL_bonus`** ── Tracks performance bonuses, incentives, and approval workflows.
+* **`PRL_loans`** ── Manages employee advances, loans, and automated monthly installment scheduling.
+* **`PRL_overtime`** ── Logs extra working hours and calculates respective monetary compensations.
+
+### 3. 📅 Attendance Schema (`ATT`)
+Tracks workforce time management, daily discipline, and time-off requests (**2 Tables**):
+* **`ATT_vacations`** ── Manages leave requests (annual, medical, casual) and tracks time-off balances.
+* **`ATT_attendance`** ── Records precise daily clock-in/out timestamps, delays, and absences.
+
+### 4. 🤝 Recruitment Schema (`REC`)
+Facilitates the talent acquisition lifecycle and applicant tracking workflows (**2 Tables**):
+* **`REC_job_postings`** ── Publishes and manages active job openings, requirements, and vacancies.
+* **`REC_applicants`** ── Stores candidate profiles, tracks interview stages, and manages screening filters.
+
