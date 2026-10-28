@@ -84,7 +84,10 @@ BEGIN
 END;
 GO
 
+-- ================================================
+-- select table cor_employees
+-- ================================================
 
-SELECT COLUMN_NAME 
+SELECT COLUMN_NAME, DATA_TYPE 
 FROM INFORMATION_SCHEMA.COLUMNS 
 WHERE TABLE_SCHEMA = 'Core' AND TABLE_NAME = 'COR_employees';
