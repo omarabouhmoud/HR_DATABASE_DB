@@ -84,10 +84,18 @@ BEGIN
 END;
 GO
 
--- ================================================
--- select table cor_employees
--- ================================================
+-- ======================================================
+-- select table cor_employees =  column_ name , data_type
+-- ======================================================
 
 SELECT COLUMN_NAME, DATA_TYPE 
 FROM INFORMATION_SCHEMA.COLUMNS 
 WHERE TABLE_SCHEMA = 'Core' AND TABLE_NAME = 'COR_employees';
+
+-- ======================================================
+-- select table cor_employees  =  ALL
+-- ======================================================
+
+SELECT * 
+FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_SCHEMA = 'Payroll' AND TABLE_NAME = 'PRL_loans_audit';
