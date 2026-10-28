@@ -96,3 +96,12 @@ GO
 SELECT COLUMN_NAME, DATA_TYPE 
 FROM INFORMATION_SCHEMA.COLUMNS 
 WHERE TABLE_SCHEMA = 'Payroll' AND TABLE_NAME = 'PRL_loans_audit';
+
+-- ======================================================
+-- select table PRL_loans_audit =  ALL
+-- ======================================================
+
+SELECT * 
+FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_SCHEMA = 'Payroll' AND TABLE_NAME = 'PRL_loans_audit';
+
