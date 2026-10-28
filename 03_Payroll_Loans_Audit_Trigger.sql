@@ -88,3 +88,11 @@ BEGIN
     END
 END;
 GO
+
+-- ======================================================
+-- select table PRL_loans_audit =  column_ name , data_type
+-- ======================================================
+
+SELECT COLUMN_NAME, DATA_TYPE 
+FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_SCHEMA = 'Payroll' AND TABLE_NAME = 'PRL_loans_audit';
