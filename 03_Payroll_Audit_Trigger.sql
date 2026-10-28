@@ -2,7 +2,7 @@ USE HR_DATABASE_DB;
 GO
 
 -- ===================================================
--- 1. إنشاء جدول مراقبة مسيرات الرواتب (Audit Table)
+-- 1. Create Payroll Audit Table
 -- ===================================================
 IF OBJECT_ID('Payroll.PRL_payroll_audit', 'U') IS NOT NULL
     DROP TABLE Payroll.PRL_payroll_audit;
@@ -19,7 +19,7 @@ CREATE TABLE Payroll.PRL_payroll_audit (
 GO
 
 -- ===================================================
--- 2. إنشاء التريجر الخاص بمراقبة وتوثيق الرواتب (Audit Trigger)
+-- 2. Create Payroll Audit Trigger
 -- ===================================================
 IF OBJECT_ID('Payroll.trg_AuditPayrollSalaryChanges', 'TR') IS NOT NULL
     DROP TRIGGER Payroll.trg_AuditPayrollSalaryChanges;
@@ -30,10 +30,10 @@ ON Payroll.PRL_payroll
 AFTER UPDATE
 AS
 BEGIN
-    -- منع إرسال رسائل نظام تعداد الأسطر المتأثرة لتحسين الأداء
+    -- Prevent row count messages from being returned for performance optimization
     SET NOCOUNT ON;
 
-    -- التحقق من أن التعديل شمل عمود الراتب الإجمالي فعلياً لتوفير مساحة التخزين
+    -- Check if the gross_salary column was actually updated to save storage resources
     IF UPDATE(gross_salary)
     BEGIN
         INSERT INTO Payroll.PRL_payroll_audit (employee_id, old_gross_salary, new_gross_salary)
@@ -43,7 +43,7 @@ BEGIN
             i.gross_salary AS new_gross_salary
         FROM inserted i
         JOIN deleted d ON i.id = d.id
-        -- توثيق السجلات التي تغيرت قيمتها الفعلية فقط لمنع التكرار غير المفيد
+        -- Document only the records where the actual value changed to avoid redundant logs
         WHERE i.gross_salary <> d.gross_salary;
     END
 END;
