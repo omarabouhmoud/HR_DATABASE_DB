@@ -57,3 +57,11 @@ GO
 SELECT COLUMN_NAME , DATA_TYPE
 FROM INFORMATION_SCHEMA.COLUMNS 
 WHERE TABLE_SCHEMA = 'Payroll' AND TABLE_NAME = 'PRL_payroll_audit';
+
+-- ===========================================================
+-- select table PRL_payroll_audits  =  ALL
+-- ===========================================================
+
+SELECT *
+FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_SCHEMA = 'Payroll' AND TABLE_NAME = 'PRL_payroll_audit';
