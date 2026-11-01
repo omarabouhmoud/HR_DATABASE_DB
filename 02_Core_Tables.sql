@@ -21,7 +21,7 @@ CREATE TABLE Core.COR_employees (
     first_name NVARCHAR(50) NOT NULL,                          -- Employee's first name
     last_name NVARCHAR(50) NOT NULL,                           -- last name
     date_of_birth DATE NOT NULL,                               -- date of birth
-    Email NVARCHAR(100) UNIQUE NOT NULL,                       -- Employee email (mandatory and unique to prevent duplication)
+    Email NVARCHAR(100) UNIQUE NOT NULL,                       -- Employee email (mandatory and unique to prevent duplication)   -(create index)
     phone_number NVARCHAR(20) NOT NULL,                        -- The employee's mobile number
     position_id INT NOT NULL,                                  -- Job ID (foreign key linking to the jobs table)
     hire_date DATE NOT NULL DEFAULT CAST(GETDATE() AS DATE),   -- Appointment date (automatically defaults to today's date)
