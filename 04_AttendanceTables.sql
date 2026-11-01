@@ -22,5 +22,3 @@ CREATE TABLE Attendance.ATT_vacations (
     FOREIGN KEY (employee_id) REFERENCES Core.COR_employees(id)					  
 );
 GO
-
-
