@@ -4,7 +4,7 @@ GO
 CREATE TABLE Attendance.ATT_attendance (
 	id INT PRIMARY KEY IDENTITY(1,1),                                             -- Attendance transaction number
 	date_attendance DATE NOT NULL DEFAULT CAST(GETDATE() AS DATE),				  -- Automatic date-display movement
-	time_in TIME NOT NULL,												          -- Time of clocking in for work
+	time_in TIME NOT NULL,												          -- Time of clocking in for work  _ (create index) 
 	time_out TIME NULL,														      -- Time of clock-out fingerprint registration (remains empty until the end of the workday)
 	employee_id INT NOT NULL,													  -- Employee number that fingerprinted                    
 	    attendance_status NVARCHAR(20) DEFAULT 'Present',                         -- Attendance status (present, absent, late)
