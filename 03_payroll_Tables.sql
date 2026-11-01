@@ -46,5 +46,3 @@ CREATE TABLE Payroll.PRL_loans (
      FOREIGN KEY (employee_id) REFERENCES Core.COR_employees(id)
  );
 GO
-
-
