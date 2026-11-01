@@ -7,8 +7,8 @@ CREATE TABLE Payroll.PRL_payroll (
     income_tax DECIMAL(10,2) DEFAULT 0 CHECK (income_tax >= 0),        -- Withheld taxes (negative values ​​not allowed)
     net_salary DECIMAL(10,2) NOT NULL,                                 -- Net salary after deductions
     payment_date DATE NOT NULL,                                        -- Date of salary transfer to the employee's bank
-    employee_id INT NOT NULL,                                          -- Receiving employee ID (foreign key)
-    payroll_status NVARCHAR(20) DEFAULT 'Pending',                     -- Disbursement Status (Pending, Disbursed)
+    employee_id INT NOT NULL,                                          -- Receiving employee ID (foreign key)          -(create index)
+    payroll_status NVARCHAR(20) DEFAULT 'Pending',                     -- Disbursement Status (Pending, Disbursed)     -(create index)
     encrypted_net_salary VARBINARY(MAX),                               -- A binary data field prepared for future salary value encryption.
     
     FOREIGN KEY (employee_id) REFERENCES Core.COR_employees(id)
