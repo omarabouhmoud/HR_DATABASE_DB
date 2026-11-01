@@ -23,9 +23,9 @@ CREATE TABLE Core.COR_employees (
     date_of_birth DATE NOT NULL,                               -- date of birth
     Email NVARCHAR(100) UNIQUE NOT NULL,                       -- Employee email (mandatory and unique to prevent duplication)   -(create index)
     phone_number NVARCHAR(20) NOT NULL,                        -- The employee's mobile number
-    position_id INT NOT NULL,                                  -- Job ID (foreign key linking to the jobs table)
+    position_id INT NOT NULL,                                  -- Job ID (foreign key linking to the jobs table)                 -(create index)
     hire_date DATE NOT NULL DEFAULT CAST(GETDATE() AS DATE),   -- Appointment date (automatically defaults to today's date)
-    department_id INT NOT NULL,                                -- Department ID (foreign key linking to the departments table)
+    department_id INT NOT NULL,                                -- Department ID (foreign key linking to the departments table)   -(create index)
     employee_status NVARCHAR(20) DEFAULT 'Active',             -- Employee status (automatically active/on duty, or resigned)
                                                                -- To effectively connect the employee with their department and job.
     FOREIGN KEY (position_id) REFERENCES Core.COR_positions(id),
