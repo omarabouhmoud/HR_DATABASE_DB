@@ -108,3 +108,7 @@ Facilitates the talent acquisition lifecycle and applicant tracking workflows (*
 * **`REC_job_postings`** ── Publishes and manages active job openings, requirements, and vacancies.
 * **`REC_applicants`** ── Stores candidate profiles, tracks interview stages, and manages screening filters.
 
+
+### 5.   HR Entity Relationship Diagram (ERD) 
+
+![HR Entity Relationship Diagram](ERD_HR_DATABASE_DB.png)
