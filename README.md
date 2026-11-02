@@ -105,7 +105,7 @@ The database features **4 modular schemas** governing **11 interrelated tables**
   * **Differential Backup `Differential`:** Captures cumulative transaction changes since the last Full backup to optimize physical disk storage allocation and reduce execution downtime.
   * **Transaction Log Backup `Transaction Log`:** Tracks transactional operations incrementally, enabling reliable point-in-time recovery (PITR) to restore the environment to its last stable state before failure.
 
-### ⚡ Performance Tuning & Optimization
+### ⚡ Performance Optimization & Indexing
 * **Database Indexing Strategy:** Proactively designed and implemented unique and non-clustered indexes across mission-critical schemas to maximize query engine response times and optimize complex `JOIN` execution paths:
   * **Core Schema:** Deployed a unique index `IX_COR_employees_Email` to optimize corporate login verification, and a composite index `IX_COR_employees_Dept_Position` to accelerate high-frequency cross-departmental organizational reporting.
   * **Attendance Schema:** Implemented composite indexes `IX_ATT_attendance_Employee_Date` and `IX_ATT_vacations_Employee_Dates` to eliminate table scans during dashboard rendering of daily timesheets and leave schedules.
