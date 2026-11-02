@@ -100,6 +100,19 @@ The database features **4 modular schemas** governing **11 interrelated tables**
 * **Data Privacy:** Strategic physical and logical isolation of financial elements to prepare for granular column-level data encryption.
 
 
+### 💾 Database Backup Strategy
+* **Database Backup & Recovery Planning:** Developed a bulletproof disaster recovery strategy to ensure high availability and prevent data loss across various recovery models:
+  * **Full Backup `Full`:** Conducts a comprehensive snapshot of all schemas, system structures, and transaction tables for complete system baseline recovery.
+  * **Differential Backup `Differential`:** Captures cumulative transaction changes since the last Full backup to optimize physical disk storage allocation and reduce execution downtime.
+  * **Transaction Log Backup `Transaction Log`:** Tracks transactional operations incrementally, enabling reliable point-in-time recovery (PITR) to restore the environment to its last stable state before failure.
+
+### ⚡ Performance Tuning & Optimization
+* **Database Indexing Strategy:** Proactively designed and implemented unique and non-clustered indexes across mission-critical schemas to maximize query engine response times and optimize complex `JOIN` execution paths:
+  * **Core Schema:** Deployed a unique index `IX_COR_employees_Email` to optimize corporate login verification, and a composite index `IX_COR_employees_Dept_Position` to accelerate high-frequency cross-departmental organizational reporting.
+  * **Attendance Schema:** Implemented composite indexes `IX_ATT_attendance_Employee_Date` and `IX_ATT_vacations_Employee_Dates` to eliminate table scans during dashboard rendering of daily timesheets and leave schedules.
+  * **Payroll Schema:** Provisioned a targeted index `IX_PRL_payroll_Employee_Status` to accelerate the retrieval of active financial drafts and expedite auditing workflows.
+  * **Proactive Metadata Setup:** All structural indexes were provisioned ahead of initial data seeding to ensure day-one query efficiency, eliminating future database deadlocks, `Table Locks`, or production server degradation.
+
 ## 🗄️ Database Architecture & Schema Design
 
 The database is architected using a modular **Multi-Schema approach** to ensure high performance, strict data isolation, role-based access control, and seamless scalability. The system is split into **4 core domains**:
