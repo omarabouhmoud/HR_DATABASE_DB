@@ -148,3 +148,26 @@ Facilitates the talent acquisition lifecycle and applicant tracking workflows (*
 </p>
 
 
+
+---
+
+## 📊 Relational Database Schema Architecture
+
+The relational structure spans **4 business schemas** managing **11 independent structural tables**, seamlessly separated for modular data management:
+
+| Schema | Table Name (English) | الوصف باللغة العربية (Description) |
+| :--- | :--- | :--- |
+| **COR** (Core) | `COR_departments` | إدارة الهيكل التنظيمي والأقسام الرئيسية |
+| | `COR_employees` | السجل الشامل لبيانات الموظفين والملفات الشخصية |
+| | `COR_positions` | المسميات الوظيفية والمراتب والدرجات المهنية |
+| **PRL** (Payroll) | `PRL_payroll` | مسيرات الرواتب الأساسية، الاستقطاعات، والصافي المالي المشفر |
+| | `PRL_bonus` | سجل البدلات والمكافآت وحالات اعتمادها اللحظية |
+| | `PRL_loans` | حوكمة القروض الداخلية والأقسام والأقساط المستقطعة |
+| | `PRL_overtime` | احتساب ساعات العمل الإضافية والتعويضات المالية |
+| **ATT** (Attendance) | `ATT_attendance` | سجلات الحضور والانصراف اليومية والعمليات اللحظية |
+| | `ATT_vacations` | إدارة الإجازات السنوية، المرضية، والاضطرارية وأنواعها |
+| **REC** (Recruitment) | `REC_job_postings` | إدارة الفرص والوظائف الشاغرة والمعلنة للعامة |
+| | `REC_applicants` | نظام فرز وفلترة المتقدمين ومتابعة لجان المقابلات |
+
+---
+
