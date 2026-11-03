@@ -2,19 +2,19 @@
 USE HR_DATABASE_DB;
 GO
 
--- 2. Create a schema to store core employee data
+-- 2. Create a schema to store {core} employee data
 CREATE SCHEMA Core;
 GO
 
--- 3. Create a schema to manage payroll and financial records
+-- 3. Create a schema to manage {payroll} and financial records
 CREATE SCHEMA Payroll;
 GO
 
--- 4. Create a schema for time-tracking and employee attendance
+-- 4. Create a schema for time-tracking and employee {attendance}
 CREATE SCHEMA Attendance;
 GO
 
--- 5. Create a schema for recruitment and hiring processes
+-- 5. Create a schema for {recruitment} and hiring processes
 CREATE SCHEMA Recruitment;
 GO
 
