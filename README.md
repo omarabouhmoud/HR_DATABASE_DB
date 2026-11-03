@@ -2,7 +2,6 @@
 
 [English](#english-version) | [العربية](#النسخة-العربية)
 
----
 
 ## النسخة العربية
 
@@ -27,6 +26,31 @@
 ### 🔒 الحوكمة والأمن الرقمي
 * **إدارة الصلاحيات (DBA Role):** تم عزل سكريبت التأسيس الرئيسي والـ Passwords الحقيقية محلياً عن طريق قواعد Git الصارمة، وإتاحة ملف تمبلت آمن للعرض يعتمد على دور `db_owner` لحساب إدارة النظام `DBA_Admin`.
 * **سرية البيانات:** عزل جداول الرواتب الحساسة برمجياً تمهيداً لتطبيق التشفير الشامل للبيانات المالية الحساسة.
+
+
+### 💾 إستراتيجية النسخ الاحتياط(Database Backup)
+* **إستراتيجية النسخ الاحتياطي (Database Backup):** تم بناء خطة متكاملة لتأمين البيانات وضمان استمرارية النظام عبر تفعيل خيارات الاستعادة المختلفة:
+  * **النسخ الكامل `Full`:** يتضمن أخذ نسخة شاملة لكافة البيانات والمخططات والجداول في النظام لضمان الاستعادة الكلية عند الطوارئ.
+  * **النسخ التفاضلي `Differential`:** يختص بحفظ التغييرات التراكمية التي تمت فقط بعد آخر نسخ كامل لتوفير مساحة التخزين ووقت التنفيذ.
+  * **نسخ سجل العمليات `Transaction Log`:** لمراقبة وتوثيق العمليات اللحظية، مما يتيح ميزة الاستعادة لنقطة زمنية محددة بدقة وعودة النظام لآخر حالة مستقرة قبل الفقدان.
+
+
+### ⚡ هندسة تحسين الأداء والتصفية السريعة
+* **فهرسة البيانات (Database Indexing):** تم تصميم وبناء فهارس فريدة وغير متجمعة استباقياً على المخططات والجداول الحيوية لرفع كفاءة الاستعلامات وتسريع عمليات الربط `JOIN`:
+  * **مخطط النواة `Core Schema`:** إنشاء فهرس فريد `IX_COR_employees_Email` لتسريع عمليات تسجيل الدخول والبحث بالبريد الإلكتروني، وفهرس مركب `IX_COR_employees_Dept_Position` لتسريع تقارير ربط الموظفين بأقسامهم ومسمياتهم الوظيفية.
+  * **مخطط الحضور والغياب `Attendance Schema`:** بناء فهارس مركبة `IX_ATT_attendance_Employee_Date` و `IX_ATT_vacations_Employee_Dates` لتسريع استعلامات لوحات التحكم (Dashboards) الخاصة ببيانات الحضور اليومي وتواريخ الإجازات.
+  * **مخطط الأجور والرواتب `Payroll Schema`:** إنشاء فهرس `IX_PRL_payroll_Employee_Status` على جدول الرواتب لتسريع عمليات جلب المسودات المالية ومراقبة حالات صرف الرواتب وتدقيقها ماليًا.
+  * **الهيكلة البرمجية الاستباقية `Metadata Setup`:** تم تأسيس الفهارس مسبقاً قبل مرحلة تغذية البيانات لضمان جهوزية النظام واستقراره اللحظي، وتجنب عمليات قفل الجداول `Table Locks` أو بطء الخادم مستقبلاً.
+
+
+### 🤖 أتمتة العمليات وحوكمة البيانات (Database Triggers)
+* **مشغلات التدقيق والمطابقة المؤتمتة (Triggers):** تم تطوير وبناء مشغلات برمجية متقدمة على مستوى الخادم لتعمل تلقائياً عند تعديل البيانات، مما يضمن الحوكمة الكاملة للمخططات وبناء سجلات مراقبة تاريخية دقيقة:
+  * **مراقبة البيانات المهنية للموظفين:** تفعيل المشغل البرمجي `trg_AuditEmployeeChanges` على جدول الموظفين الأساسي لمراقبة عمليات التحديث والحذف (`AFTER UPDATE, DELETE`)، حيث يقوم تلقائياً برصد أي تغيير في البيانات الهيكلية الحساسة كالمسمى الوظيفي أو القسم ونقلها لجدول المراقبة `COR_employees_audit`.
+  * **التدقيق المالي ومراقبة الأجور:** بناء المشغل البرمجي `trg_AuditPayrollSalaryChanges` على جدول الرواتب لتعقب التغييرات في الراتب الإجمالي (`gross_salary`)، وضمان توثيق التعديلات المالية بدقة مع تحسين استهلاك موارد الخادم ومساحة التخزين عبر تسجيل الحركات الفعلية فقط.
+  * **حماية وحوكمة دورة حياة القروض:** إدراج المشغل البرمجي `trg_AuditLoanChanges` لمراقبة حركات وجدولة القروض والسلف الشخصية، مما يضمن تسجيل وتوثيق أي تحديث في مبالغ القروض أو حالات الاعتماد والصرف تلقائياً في جدول التدقيق المالي `PRL_loans_audit`.
+
+
+
 ## 🗄️ بنية وهندسة قاعدة البيانات (Database Architecture)
 
 تم تصميم قاعدة بيانات النظام استناداً إلى مفهوم **المخططات المجزأة (Sub-schemas/Modules)** لضمان كفاءة الأداء، عزل الصلاحيات، وسهولة التوسع المستقبلي. ينقسم النظام إلى **4 مخططات رئيسية** موزعة كالتالي:
@@ -81,6 +105,26 @@ The database features **4 modular schemas** governing **11 interrelated tables**
 * **Data Privacy:** Strategic physical and logical isolation of financial elements to prepare for granular column-level data encryption.
 
 
+### 💾 Database Backup Strategy
+* **Database Backup & Recovery Planning:** Developed a bulletproof disaster recovery strategy to ensure high availability and prevent data loss across various recovery models:
+  * **Full Backup `Full`:** Conducts a comprehensive snapshot of all schemas, system structures, and transaction tables for complete system baseline recovery.
+  * **Differential Backup `Differential`:** Captures cumulative transaction changes since the last Full backup to optimize physical disk storage allocation and reduce execution downtime.
+  * **Transaction Log Backup `Transaction Log`:** Tracks transactional operations incrementally, enabling reliable point-in-time recovery (PITR) to restore the environment to its last stable state before failure.
+
+### ⚡ Performance Optimization & Indexing
+* **Database Indexing Strategy:** Proactively designed and implemented unique and non-clustered indexes across mission-critical schemas to maximize query engine response times and optimize complex `JOIN` execution paths:
+  * **Core Schema:** Deployed a unique index `IX_COR_employees_Email` to optimize corporate login verification, and a composite index `IX_COR_employees_Dept_Position` to accelerate high-frequency cross-departmental organizational reporting.
+  * **Attendance Schema:** Implemented composite indexes `IX_ATT_attendance_Employee_Date` and `IX_ATT_vacations_Employee_Dates` to eliminate table scans during dashboard rendering of daily timesheets and leave schedules.
+  * **Payroll Schema:** Provisioned a targeted index `IX_PRL_payroll_Employee_Status` to accelerate the retrieval of active financial drafts and expedite auditing workflows.
+  * **Proactive Metadata Setup:** All structural indexes were provisioned ahead of initial data seeding to ensure day-one query efficiency, eliminating future database deadlocks, `Table Locks`, or production server degradation.
+ 
+### 🤖 Process Automation & Ledger Governance (Database Triggers)
+* **Automated Audit & Compliance Triggers:** Engineered advanced database triggers to implicitly capture data modifications, enforce structural integrity, and build reliable historical transaction logs:
+  * **Employee Staging & Career Tracking:** Deployed an active auditing trigger `trg_AuditEmployeeChanges` on the core employee directory to monitor structural updates and data deletions, automatically intercepting historical adjustments to position or department bounds.
+  * **Financial & Compensation Ledger Auditing:** Implemented a targeted evaluation trigger `trg_AuditPayrollSalaryChanges` to monitor gross salary variations, capturing active shifts to financial packages while optimizing server execution storage.
+  * **Loan Lifecycle & Balance Verification:** Provisioned a continuous validation trigger `trg_AuditLoanChanges` to track the issuance, adjustment, and cancellation of corporate advances, ensuring zero-downtime ledger validation.
+
+
 ## 🗄️ Database Architecture & Schema Design
 
 The database is architected using a modular **Multi-Schema approach** to ensure high performance, strict data isolation, role-based access control, and seamless scalability. The system is split into **4 core domains**:
@@ -117,3 +161,30 @@ Facilitates the talent acquisition lifecycle and applicant tracking workflows (*
 </p>
 
 
+
+---
+
+## 📊 Relational Database Schema Architecture
+
+The relational structure spans **4 business schemas** managing **11 independent structural tables**, seamlessly separated for modular data management:
+
+| Schema | Table Name (English) | الوصف باللغة العربية (Description) |
+| :--- | :--- | :--- |
+| **COR** (Core) | `COR_departments` | إدارة الهيكل التنظيمي والأقسام الرئيسية |
+| | `COR_employees` | السجل الشامل لبيانات الموظفين والملفات الشخصية |
+| | `COR_positions` | المسميات الوظيفية والمراتب والدرجات المهنية |
+| **PRL** (Payroll) | `PRL_payroll` | مسيرات الرواتب الأساسية، الاستقطاعات، والصافي المالي المشفر |
+| | `PRL_bonus` | سجل البدلات والمكافآت وحالات اعتمادها اللحظية |
+| | `PRL_loans` | حوكمة القروض الداخلية والأقسام والأقساط المستقطعة |
+| | `PRL_overtime` | احتساب ساعات العمل الإضافية والتعويضات المالية |
+| **ATT** (Attendance) | `ATT_attendance` | سجلات الحضور والانصراف اليومية والعمليات اللحظية |
+| | `ATT_vacations` | إدارة الإجازات السنوية، المرضية، والاضطرارية وأنواعها |
+| **REC** (Recruitment) | `REC_job_postings` | إدارة الفرص والوظائف الشاغرة والمعلنة للعامة |
+| | `REC_applicants` | نظام فرز وفلترة المتقدمين ومتابعة لجان المقابلات |
+
+---
+### 👨‍💻 | About the Developer
+> **Omar Salman Abuhmoud**
+> * 🎓 **Degree:** Bachelor's in Computer Science
+> * 💼 **Specialization:** Database Programming & Development
+> * 💻 **GitHub Profile:** [omarabouhmoud](https://github.com/omarabouhmoud)
