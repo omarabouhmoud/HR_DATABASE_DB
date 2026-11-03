@@ -170,5 +170,8 @@ The relational structure spans **4 business schemas** managing **11 independent 
 | | `REC_applicants` | نظام فرز وفلترة المتقدمين ومتابعة لجان المقابلات |
 
 ---
-**👨‍💻 Developed by:** [Omar Salman Abuhmoud](https://github.com/omarabouhmoud)  
-**🎓 Degree:** Bachelor's in Computer Science
+### 👨‍💻 مبرمج ومطور المشروع | About the Developer
+> **Omar Salman Abuhmoud**
+> * 🎓 **Degree:** Bachelor's in Computer Science
+> * 💼 **Specialization:** Database Programming & Development
+
