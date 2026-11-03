@@ -7,8 +7,9 @@ GO
 
 USE HR_DATABASE_DB;
 GO
-
---Full Backup of database HR
+-- ==========================
+-- Full Backup of database HR
+-- ==========================
 PRINT 'Executing Full Database Backup...';
 
 BACKUP DATABASE HR_DATABASE_DB
@@ -19,8 +20,9 @@ WITH FORMAT,
      NAME = 'Full Backup of HR_DATABASE_DB',
      STATS = 10; -- Displays progress percentage every 10%
 GO
-
---Differential Backup Database HR
+-- ===============================
+-- Differential Backup Database HR
+-- ===============================
 PRINT 'Executing Differential Database Backup...';
 
 BACKUP DATABASE HR_DATABASE_DB
@@ -32,7 +34,9 @@ WITH DIFFERENTIAL,
      STATS = 10;
 GO
 
---Transaction Log Backup Database HR
+-- ==================================
+-- Transaction Log Backup Database HR
+-- -- ===============================
 PRINT 'Executing Transaction Log Backup...';
 
 BACKUP LOG HR_DATABASE_DB
@@ -43,7 +47,9 @@ WITH INIT,
      STATS = 10;
 GO
 
---Partial Backup Database HR
+-- ==========================
+-- Partial Backup Database HR
+-- ==========================
 PRINT 'Executing Partial Database Backup...';
 
 BACKUP DATABASE HR_DATABASE_DB
