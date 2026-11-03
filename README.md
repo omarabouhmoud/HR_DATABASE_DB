@@ -116,6 +116,12 @@ The database features **4 modular schemas** governing **11 interrelated tables**
   * **Attendance Schema:** Implemented composite indexes `IX_ATT_attendance_Employee_Date` and `IX_ATT_vacations_Employee_Dates` to eliminate table scans during dashboard rendering of daily timesheets and leave schedules.
   * **Payroll Schema:** Provisioned a targeted index `IX_PRL_payroll_Employee_Status` to accelerate the retrieval of active financial drafts and expedite auditing workflows.
   * **Proactive Metadata Setup:** All structural indexes were provisioned ahead of initial data seeding to ensure day-one query efficiency, eliminating future database deadlocks, `Table Locks`, or production server degradation.
+ 
+### 🤖 Process Automation & Data Integrity (Database Triggers)
+* **Automated Database Triggers:** Engineered server-side triggers to run implicitly behind the scenes, ensuring solid business logic governance and zero-downtime ledger validation:
+  * **Financial Auditing Trigger:** Active transaction interception built over critical financial tables (e.g., payroll modules), automatically dumping historical modifications and point-in-time system changes straight into secure database audit trails.
+  * **Constraint & Integrity Enforcement:** Proactively intercepts incoming rows before physical persistence, conducting business-rule validation to assure that computations and ledger balances stay structurally safe and flawless.
+
 
 ## 🗄️ Database Architecture & Schema Design
 
