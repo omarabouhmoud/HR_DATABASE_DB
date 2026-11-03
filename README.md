@@ -1,8 +1,6 @@
 # 🏢 Human Resources Management System Database (HR_DATABASE_DB)
 
 [English](#english-version) | [العربية](#النسخة-العربية)
-
-
 ## النسخة العربية
 
 ### 📝 وصف المشروع
@@ -82,7 +80,8 @@
 
 ## English Version
 
-### 📝 Project Overview
+## 📝 Project Description
+
 The **HR Management System Database** is an enterprise-grade relational database architecture engineered utilizing **SQL Server (SSMS)**. The system is meticulously designed to optimize human capital operations, reinforce data integrity, and ensure strict data governance through separation of concerns.
 
 ### 📐 Database Architecture & Schema Layout
