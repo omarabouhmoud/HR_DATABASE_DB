@@ -8,7 +8,7 @@ GO
 USE HR_DATABASE_DB;
 GO
 
--- --Full Backup of database HR
+--Full Backup of database HR
 PRINT 'Executing Full Database Backup...';
 
 BACKUP DATABASE HR_DATABASE_DB
