@@ -174,4 +174,3 @@ The relational structure spans **4 business schemas** managing **11 independent 
 > **Omar Salman Abuhmoud**
 > * 🎓 **Degree:** Bachelor's in Computer Science
 > * 💼 **Specialization:** Database Programming & Development
-
