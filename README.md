@@ -117,10 +117,11 @@ The database features **4 modular schemas** governing **11 interrelated tables**
   * **Payroll Schema:** Provisioned a targeted index `IX_PRL_payroll_Employee_Status` to accelerate the retrieval of active financial drafts and expedite auditing workflows.
   * **Proactive Metadata Setup:** All structural indexes were provisioned ahead of initial data seeding to ensure day-one query efficiency, eliminating future database deadlocks, `Table Locks`, or production server degradation.
  
-### 🤖 Process Automation & Data Integrity (Database Triggers)
-* **Automated Database Triggers:** Engineered server-side triggers to run implicitly behind the scenes, ensuring solid business logic governance and zero-downtime ledger validation:
-  * **Financial Auditing Trigger:** Active transaction interception built over critical financial tables (e.g., payroll modules), automatically dumping historical modifications and point-in-time system changes straight into secure database audit trails.
-  * **Constraint & Integrity Enforcement:** Proactively intercepts incoming rows before physical persistence, conducting business-rule validation to assure that computations and ledger balances stay structurally safe and flawless.
+### 🤖 Process Automation & Ledger Governance (Database Triggers)
+* **Automated Audit & Compliance Triggers:** Engineered advanced database triggers to implicitly capture data modifications, enforce structural integrity, and build reliable historical transaction logs:
+  * **Employee Staging & Career Tracking:** Deployed an active auditing trigger `trg_AuditEmployeeChanges` on the core employee directory to monitor structural updates and data deletions, automatically intercepting historical adjustments to position or department bounds.
+  * **Financial & Compensation Ledger Auditing:** Implemented a targeted evaluation trigger `trg_AuditPayrollSalaryChanges` to monitor gross salary variations, capturing active shifts to financial packages while optimizing server execution storage.
+  * **Loan Lifecycle & Balance Verification:** Provisioned a continuous validation trigger `trg_AuditLoanChanges` to track the issuance, adjustment, and cancellation of corporate advances, ensuring zero-downtime ledger validation.
 
 
 ## 🗄️ Database Architecture & Schema Design
