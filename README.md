@@ -1,16 +1,9 @@
 # 🏢 Human Resources Management System Database (HR_DATABASE_DB)
 
 [English](#english-version) | [العربية](#النسخة-العربية)
-
-
-## Table of Contents
-
-1.  [Project Description](#project-description)
-
-
 ## النسخة العربية
 
-## 📝 وصف المشروع
+### 📝 وصف المشروع
 مشروع **قاعدة بيانات إدارة الموارد البشرية المتكاملة** هو نظام مصمم لإدارة رأس المال البشري بكفاءة وتوسعية عالية باستخدام **SQL Server (SSMS)**. تم بناء النظام بالاعتماد على معايير هندسة البيانات المتقدمة لضمان أمن البيانات، تكاملها، وحوكمتها عبر فصل المهام والوظائف الأساسية.
 
 ### 📐 الهندسة المعمارية وقسم المخططات (Schema Design)
@@ -87,7 +80,7 @@
 
 ## English Version
 
-##  Project Description
+## 📝 Project Description
 
 The **HR Management System Database** is an enterprise-grade relational database architecture engineered utilizing **SQL Server (SSMS)**. The system is meticulously designed to optimize human capital operations, reinforce data integrity, and ensure strict data governance through separation of concerns.
 
