@@ -1,9 +1,9 @@
 USE HR_DATABASE_DB;
 GO
 
--- ===================================================
+-- =============================
 -- 1. Create Payroll Audit Table
--- ===================================================
+-- =============================
 IF OBJECT_ID('Payroll.PRL_payroll_audit', 'U') IS NOT NULL
     DROP TABLE Payroll.PRL_payroll_audit;
 GO
@@ -18,9 +18,9 @@ CREATE TABLE Payroll.PRL_payroll_audit (
 );
 GO
 
--- ===================================================
+-- ================================
 -- 2. Create Payroll Audit Trigger
--- ===================================================
+-- ================================
 IF OBJECT_ID('Payroll.trg_AuditPayrollSalaryChanges', 'TR') IS NOT NULL
     DROP TRIGGER Payroll.trg_AuditPayrollSalaryChanges;
 GO
@@ -58,9 +58,9 @@ SELECT COLUMN_NAME , DATA_TYPE
 FROM INFORMATION_SCHEMA.COLUMNS 
 WHERE TABLE_SCHEMA = 'Payroll' AND TABLE_NAME = 'PRL_payroll_audit';
 
--- ===========================================================
+-- =======================================
 -- select table PRL_payroll_audits  =  ALL
--- ===========================================================
+-- =======================================
 
 SELECT *
 FROM INFORMATION_SCHEMA.COLUMNS 
