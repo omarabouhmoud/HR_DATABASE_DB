@@ -159,10 +159,6 @@ Facilitates the talent acquisition lifecycle and applicant tracking workflows (*
   <img src="ERD_HR_DATABASE_DB.png" alt="HR Entity Relationship Diagram" width="80%">
 </p>
 
-
-
----
-
 ## 📊 Relational Database Schema Architecture
 
 The relational structure spans **4 business schemas** managing **11 independent structural tables**, seamlessly separated for modular data management:
