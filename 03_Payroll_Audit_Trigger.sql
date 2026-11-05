@@ -65,3 +65,12 @@ WHERE TABLE_SCHEMA = 'Payroll' AND TABLE_NAME = 'PRL_payroll_audit';
 SELECT *
 FROM INFORMATION_SCHEMA.COLUMNS 
 WHERE TABLE_SCHEMA = 'Payroll' AND TABLE_NAME = 'PRL_payroll_audit';
+
+
+-- =========================================================================
+-- select table PRL_payroll_audits  =  COLUMN_NAME , DATA_TYPE , IS_NULLABLE 
+-- =========================================================================
+
+select COLUMN_NAME , DATA_TYPE  , IS_NULLABLE 
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_SCHEMA = 'Payroll' AND TABLE_NAME = 'PRL_payroll_audit';
