@@ -24,5 +24,3 @@ SELECT
     phone_number
 FROM Core.COR_departments
 ORDER BY department_nema ASC; 
-
-
