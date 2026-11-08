@@ -103,7 +103,6 @@ The database features **4 modular schemas** governing **11 interrelated tables**
 * **Privilege Management (DBA Role):** Implemented a rigorous security baseline using localized Git environment isolation. Server logins and database users (`DBA_Admin_User`) are mapped to the `db_owner` role using secure templates.
 * **Data Privacy:** Strategic physical and logical isolation of financial elements to prepare for granular column-level data encryption.
 
-
 ### 💾 Database Backup Strategy
 * **Database Backup & Recovery Planning:** Developed a bulletproof disaster recovery strategy to ensure high availability and prevent data loss across various recovery models:
   * **Full Backup `Full`:** Conducts a comprehensive snapshot of all schemas, system structures, and transaction tables for complete system baseline recovery.
@@ -122,7 +121,6 @@ The database features **4 modular schemas** governing **11 interrelated tables**
   * **Employee Staging & Career Tracking:** Deployed an active auditing trigger `trg_AuditEmployeeChanges` on the core employee directory to monitor structural updates and data deletions, automatically intercepting historical adjustments to position or department bounds.
   * **Financial & Compensation Ledger Auditing:** Implemented a targeted evaluation trigger `trg_AuditPayrollSalaryChanges` to monitor gross salary variations, capturing active shifts to financial packages while optimizing server execution storage.
   * **Loan Lifecycle & Balance Verification:** Provisioned a continuous validation trigger `trg_AuditLoanChanges` to track the issuance, adjustment, and cancellation of corporate advances, ensuring zero-downtime ledger validation.
-
 
 ## 🗄️ Database Architecture & Schema Design
 
