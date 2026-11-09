@@ -24,3 +24,14 @@ SELECT
     phone_number
 FROM Core.COR_departments
 ORDER BY department_nema ASC; 
+-- -----------------------------------------------------------------------------------------------------------------
+-- An advanced query demonstrating data grouping, used to determine the number of departments in each city or branch
+-- Results are sorted in ascending order based on the highest counts, highlighting the analytical aspect
+-- -----------------------------------------------------------------------------------------------------------------
+SELECT 
+    location_nema AS Branch_Location, 
+    COUNT(id) AS Projected_Departments_Count
+FROM Core.COR_departments
+GROUP BY location_nema
+HAVING COUNT(id) > 0 
+ORDER BY Projected_Departments_Count DESC;
