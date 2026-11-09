@@ -33,5 +33,5 @@ SELECT
     COUNT(id) AS Projected_Departments_Count
 FROM Core.COR_departments
 GROUP BY location_nema
-HAVING COUNT(id) > 0 -- مهارة استخدام HAVING لتصفية المجموعات التجميعية
+HAVING COUNT(id) > 0 
 ORDER BY Projected_Departments_Count DESC;
