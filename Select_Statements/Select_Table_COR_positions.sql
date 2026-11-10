@@ -1,5 +1,3 @@
-
-
 -- Connecting to the database
 USE HR_DATABASE_DB;
 GO
