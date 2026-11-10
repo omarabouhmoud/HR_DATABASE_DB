@@ -1,6 +1,7 @@
 -- Connecting to the database
 USE HR_DATABASE_DB;
 GO
+
 -- ------------------------------------------------------------------------------------------------------
 -- A query demonstrating the ability to format text and apply an "executive format,"
 -- while also calculating the length of job descriptions to ensure compliance with data quality standards.
