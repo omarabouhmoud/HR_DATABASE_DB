@@ -19,3 +19,19 @@ SELECT
     bonus_status
 FROM Payroll.PRL_bonus
 ORDER BY bonus_amount DESC;
+
+-- -----------------------------------------------------------------------------------------------------------
+-- Strong analytical skill demonstrated by using the DATEPART(QUARTER) function to group the bonus budget 
+-- by fiscal quarter (Q1, Q2, Q3, Q4) and calculating the maximum, minimum, and average bonus for each quarter.
+-- -----------------------------------------------------------------------------------------------------------
+SELECT 
+    YEAR(bonus_date) AS Fiscal_Year,
+    CONCAT('Q', DATEPART(QUARTER, bonus_date)) AS Fiscal_Quarter,
+    COUNT(id) AS Total_Bonuses_Issued,
+    SUM(bonus_amount) AS Total_Quarterly_Payout,
+    CAST(AVG(bonus_amount) AS DECIMAL(10,2)) AS Average_Bonus_Value,
+    MAX(bonus_amount) AS Highest_Single_Bonus
+FROM Payroll.PRL_bonus
+WHERE bonus_status = 'Approved'
+GROUP BY YEAR(bonus_date), DATEPART(QUARTER, bonus_date)
+ORDER BY Fiscal_Year DESC, Fiscal_Quarter ASC;
