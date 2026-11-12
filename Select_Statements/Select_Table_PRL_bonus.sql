@@ -1,6 +1,5 @@
 USE HR_DATABASE_DB;
 GO
-
 -- -----------------------------------------------------------------------------------------------
 -- A query demonstrating the ability to programmatically categorize monetary amounts into segments, 
 -- and to format dates for easier presentation in senior management reports.
