@@ -1,17 +1,24 @@
 USE HR_DATABASE_DB;
 GO
 
-
+------------------------------------------------------------------------------------------
+-- A query demonstrating how to filter and retrieve pending payroll records,
+-- ordering the results chronologically by the most recent payment date.
+------------------------------------------------------------------------------------------
 SELECT id, employee_id, gross_salary, net_salary, payment_date
 FROM Payroll.PRL_payroll
 WHERE payroll_status = 'Pending'
 ORDER BY payment_date DESC;
 
-
+------------------------------------------------------------------------------------------
+-- A query demonstrating the retrieval of high-earning payroll records,
+-- filtering for net salaries above 5000 and sorting them from highest to lowest.
+------------------------------------------------------------------------------------------
 SELECT employee_id, gross_salary, income_tax, net_salary
 FROM Payroll.PRL_payroll
 WHERE net_salary > 5000
 ORDER BY net_salary DESC;
+
 
 ------------------------------------------------------------------------------------------
 -- A query demonstrating the ability to aggregate financial payroll metrics by status,
