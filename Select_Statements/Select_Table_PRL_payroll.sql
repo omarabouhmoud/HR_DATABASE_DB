@@ -43,3 +43,44 @@ SELECT
     AVG(gross_salary) AS Average_Gross_Salary,
     AVG(net_salary) AS Average_Net_Salary
 FROM Payroll.PRL_payroll;
+
+------------------------------------------------------------------------------------------
+-- A query demonstrating subquery filtering and group-level auditing using HAVING,
+-- identifying employees earning above-average salaries with multiple payouts in a single month.
+------------------------------------------------------------------------------------------
+SELECT 
+    employee_id,
+    YEAR(payment_date) AS Pay_Year,
+    MONTH(payment_date) AS Pay_Month,
+    COUNT(id) AS Payout_Count,
+    SUM(net_salary) AS Total_Received
+FROM Payroll.PRL_payroll
+WHERE net_salary > (SELECT AVG(net_salary) FROM Payroll.PRL_payroll)
+GROUP BY employee_id, YEAR(payment_date), MONTH(payment_date)
+HAVING COUNT(id) > 1
+ORDER BY Total_Received DESC;
+
+
+------------------------------------------------------------------------------------------
+-- A query demonstrating Common Table Expressions (CTEs) and LAG analytical functions,
+-- tracking month-over-month payroll expenditure growth and financial variance.
+------------------------------------------------------------------------------------------
+WITH MonthlyPayroll AS (
+    SELECT 
+        YEAR(payment_date) AS Pay_Year,
+        MONTH(payment_date) AS Pay_Month,
+        SUM(net_salary) AS Total_Monthly_Net
+    FROM Payroll.PRL_payroll
+    WHERE payroll_status = 'Paid'
+    GROUP BY YEAR(payment_date), MONTH(payment_date)
+)
+SELECT 
+    Pay_Year,
+    Pay_Month,
+    Total_Monthly_Net,
+    LAG(Total_Monthly_Net) OVER (ORDER BY Pay_Year, Pay_Month) AS Previous_Month_Net,
+    ROUND(
+        ((Total_Monthly_Net - LAG(Total_Monthly_Net) OVER (ORDER BY Pay_Year, Pay_Month)) 
+        / NULLIF(LAG(Total_Monthly_Net) OVER (ORDER BY Pay_Year, Pay_Month), 0)) * 100, 
+    2) AS MoM_Growth_Percentage
+FROM MonthlyPayroll;
