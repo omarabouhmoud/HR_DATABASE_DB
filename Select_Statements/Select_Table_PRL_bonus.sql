@@ -54,4 +54,3 @@ SELECT
 FROM Payroll.PRL_payroll
 WHERE payroll_status = 'Paid'
 ORDER BY Tax_Percentage DESC;
-
