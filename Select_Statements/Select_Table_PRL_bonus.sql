@@ -34,3 +34,24 @@ FROM Payroll.PRL_bonus
 WHERE bonus_status = 'Approved'
 GROUP BY YEAR(bonus_date), DATEPART(QUARTER, bonus_date)
 ORDER BY Fiscal_Year DESC, Fiscal_Quarter ASC;
+
+
+------------------------------------------------------------------------------------------
+-- A query demonstrating conditional salary tier classification and tax ratio calculation,
+-- safely handling potential division-by-zero errors for executive financial analysis.
+------------------------------------------------------------------------------------------
+SELECT 
+    employee_id,
+    gross_salary,
+    income_tax,
+    net_salary,
+    ROUND((income_tax / NULLIF(gross_salary, 0)) * 100, 2) AS Tax_Percentage,
+    CASE 
+        WHEN net_salary >= 10000 THEN 'Executive Tier'
+        WHEN net_salary BETWEEN 5000 AND 9999.99 THEN 'Mid-Level Tier'
+        ELSE 'Entry-Level Tier'
+    END AS Salary_Bracket
+FROM Payroll.PRL_payroll
+WHERE payroll_status = 'Paid'
+ORDER BY Tax_Percentage DESC;
+
