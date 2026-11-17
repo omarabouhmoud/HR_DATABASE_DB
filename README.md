@@ -154,7 +154,7 @@ Facilitates the talent acquisition lifecycle and applicant tracking workflows (*
 ## 5.  🏗️ HR Entity Relationship Diagram (ERD) 
 
 <p align="center">
-  <img src="HR_Entity_Relation_ship_Diagram_ERD.png" alt="HR Entity Relationship Diagram" width="80%">
+  <img src="" alt="HR Entity Relationship Diagram" width="80%">
 </p>
 
 ## 📊 Relational Database Schema Architecture
