@@ -45,3 +45,27 @@ SELECT
     RANK() OVER (ORDER BY l.loan_amount DESC) AS Loan_Amount_Rank
 FROM Payroll.PRL_loans l
 INNER JOIN Core.COR_employees e ON l.employee_id = e.id;
+-- -----------------------------------------------------------------------------
+-- A query demonstrating data aggregation grouped by loan status,
+-- calculating total loan counts and overall disbursed amounts per status.
+-- -----------------------------------------------------------------------------
+SELECT 
+    loan_status,
+    COUNT(id) AS Total_Loans,
+    SUM(loan_amount) AS Total_Amount,
+    AVG(loan_amount) AS Average_Loan_Amount
+FROM Payroll.PRL_loans
+GROUP BY loan_status;
+
+-- -----------------------------------------------------------------------------
+-- A query demonstrating date-based filtering and duration calculation,
+-- determining the repayment period in months for each active loan.
+-- -----------------------------------------------------------------------------
+SELECT 
+    id,
+    employee_id,
+    loan_amount,
+    DATEDIFF(MONTH, loan_start, loan_end) AS Repayment_Months
+FROM Payroll.PRL_loans
+WHERE loan_status = 'Active' 
+  AND loan_end >= GETDATE();
