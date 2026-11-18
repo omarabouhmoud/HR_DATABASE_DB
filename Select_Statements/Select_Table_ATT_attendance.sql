@@ -57,3 +57,45 @@ SELECT
 FROM Attendance.ATT_vacations
 WHERE vacation_status = 'Approved'
 GROUP BY vacation_type;
+
+-- -----------------------------------------------------------------------------
+-- A query demonstrating cross-table joins and date-range auditing,
+-- detecting attendance anomalies where an employee clocked in during an approved leave.
+-- -----------------------------------------------------------------------------
+SELECT 
+    a.employee_id,
+    a.date_attendance,
+    a.time_in,
+    v.vacation_type,
+    v.start_date AS Leave_Start,
+    v.end_date AS Leave_End
+FROM Attendance.ATT_attendance a
+INNER JOIN Attendance.ATT_vacations v 
+    ON a.employee_id = v.employee_id
+WHERE v.vacation_status = 'Approved'
+  AND a.date_attendance BETWEEN v.start_date AND v.end_date;
+
+-- -----------------------------------------------------------------------------
+-- A query demonstrating Common Table Expressions (CTEs) and multi-table joins,
+-- generating a combined monthly summary of working days and approved leave days.
+-- -----------------------------------------------------------------------------
+WITH AttendanceSummary AS (
+    SELECT employee_id, COUNT(id) AS Days_Worked
+    FROM Attendance.ATT_attendance
+    WHERE attendance_status IN ('Present', 'Late')
+    GROUP BY employee_id
+),
+VacationSummary AS (
+    SELECT employee_id, SUM(DATEDIFF(DAY, start_date, end_date) + 1) AS Days_On_Leave
+    FROM Attendance.ATT_vacations
+    WHERE vacation_status = 'Approved'
+    GROUP BY employee_id
+)
+SELECT 
+    e.id AS Employee_ID,
+    ISNULL(a.Days_Worked, 0) AS Total_Days_Worked,
+    ISNULL(v.Days_On_Leave, 0) AS Total_Approved_Leaves
+FROM Core.COR_employees e
+LEFT JOIN AttendanceSummary a ON e.id = a.employee_id
+LEFT JOIN VacationSummary v ON e.id = v.employee_id
+ORDER BY Total_Days_Worked DESC;
