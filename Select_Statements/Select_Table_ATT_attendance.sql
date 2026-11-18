@@ -36,8 +36,6 @@ FROM Attendance.ATT_attendance
 GROUP BY employee_id
 ORDER BY Present_Days DESC;
 
-
-
 -- -----------------------------------------------------------------------------
 -- A query demonstrating filtering by specific leave categories,
 -- retrieving all approved sick and emergency leave records sorted by date.
