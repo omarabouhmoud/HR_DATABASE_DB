@@ -34,7 +34,11 @@ FROM Core.COR_employees
 WHERE hire_date <= GETDATE();
 
 
-
+------------------------------------------------------------------------------------------
+-- [Database Schema Verification & Metadata Inspection]
+-- A query demonstrating how to inspect system catalog views (sys.tables) to verify the 
+-- existence and creation dates of core tables, preventing duplicate object creation errors.
+------------------------------------------------------------------------------------------
 SELECT name AS Table_Name, create_date
 FROM sys.tables
 WHERE name IN ('COR_departments', 'COR_positions', 'COR_employees');
