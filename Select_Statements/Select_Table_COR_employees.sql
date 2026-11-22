@@ -33,3 +33,8 @@ SELECT
 FROM Core.COR_employees
 WHERE hire_date <= GETDATE();
 
+
+
+SELECT name AS Table_Name, create_date
+FROM sys.tables
+WHERE name IN ('COR_departments', 'COR_positions', 'COR_employees');
