@@ -107,4 +107,3 @@ ORDER BY Total_Days_Worked DESC;
 SELECT name AS Table_Name, create_date
 FROM sys.tables
 WHERE name IN ('COR_departments', 'COR_positions', 'COR_employees');
-
