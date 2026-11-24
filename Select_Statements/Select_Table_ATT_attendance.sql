@@ -99,5 +99,3 @@ FROM Core.COR_employees e
 LEFT JOIN AttendanceSummary a ON e.id = a.employee_id
 LEFT JOIN VacationSummary v ON e.id = v.employee_id
 ORDER BY Total_Days_Worked DESC;
-
-
