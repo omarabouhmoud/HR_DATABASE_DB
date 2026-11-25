@@ -32,3 +32,4 @@ CREATE TABLE Core.COR_employees (
     FOREIGN KEY (department_id) REFERENCES Core.COR_departments(id)
     );
 GO
+
